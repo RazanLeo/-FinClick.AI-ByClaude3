@@ -84,3 +84,26 @@ export default function ChartComponent({
     };
 
     // Create new chart
+    chartRef.current = new Chart(ctx, {
+      type: config.type,
+      data: config.data,
+      options: mergedOptions
+    });
+
+    return () => {
+      if (chartRef.current) {
+        chartRef.current.destroy();
+      }
+    };
+  }, [config]);
+
+  return (
+    <div className={`chart-container ${className}`} style={{ width, height }}>
+      <canvas
+        ref={canvasRef}
+        width={width}
+        height={height}
+      />
+    </div>
+  );
+}
